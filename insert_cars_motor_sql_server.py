@@ -2,7 +2,6 @@
 import pyodbc
 import pandas as pd
 from dotenv import load_dotenv
-import urllib.parse
 import os
 from tqdm import tqdm
 
@@ -12,9 +11,8 @@ DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
 
 # %%
-column_names = ['brand', 'country']
-cars_df = pd.read_csv("data/cars_brands.csv", sep = ";", names=column_names,  header=None, skiprows=1)
-cars_df['brand'] = cars_df['brand'].str.upper()
+cars_motor_df = pd.read_csv("data/cars_motor_filtered.csv", sep = ";")
+
 
 # %%
 server = '146.190.20.45'
@@ -30,15 +28,15 @@ cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';
 cursor = cnxn.cursor()
 
 #%%
-cars_df = cars_df.dropna(axis=0, how='any')
+cars_motor_df = cars_motor_df.fillna(0.0)
 
 #%%
 
 
 # %%
-for index, row in tqdm(cars_df.iterrows(), total=cars_df.shape[0]):
-    cursor.execute("INSERT INTO car_brands (brand, country) values(?,?)", 
-                    row.brand, row.country)
+for index, row in tqdm(cars_motor_df.iterrows(), total=cars_motor_df.shape[0]):
+    cursor.execute("INSERT INTO cars_motor (plate,fuel_type_number,fuel_type_description,fuel_consumption_combined,co2_emission_combined,net_power_fuel,net_power_electric) values(?,?,?,?,?,?,?)", 
+                    row.plate, row.fuel_type_number, row.fuel_type_description, row.fuel_consumption_combined, row.co2_emission_combined, row.net_power_fuel, row.net_power_electric)
 
 
 #%%
