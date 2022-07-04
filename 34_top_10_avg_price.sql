@@ -1,3 +1,5 @@
+USE Cars
+
 SELECT TOP 10
        cars.brand, 
        cars.model,
