@@ -1,3 +1,6 @@
+USE Cars
+GO
+
 WITH cars_large_electric AS (
   SELECT cars_motor.plate,
          cars_motor.net_power_fuel,

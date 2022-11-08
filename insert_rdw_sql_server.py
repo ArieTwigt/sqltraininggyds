@@ -10,6 +10,7 @@ load_dotenv()
 
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
+SERVER_ADDRESS = os.getenv("SERVER_ADDRESS")
 
 # %%
 column_names = ['plate', 'brand', 'model', 'registration_date', 'tax', 'car_type', 'seats', 'color', 'price']
@@ -17,7 +18,7 @@ cars_df = pd.read_csv("data/cars_data_20220101.csv", sep = ";", names=column_nam
 
 
 # %%
-server = '146.190.20.45'
+server = SERVER_ADDRESS
 database = 'Cars' 
 username = DB_USER
 password = DB_PASS

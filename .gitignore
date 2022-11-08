@@ -1,3 +1,6 @@
 .DS_Store
 data/cars_motor.csv
 data/Cars.bak
+.env
+*.env
+.env
